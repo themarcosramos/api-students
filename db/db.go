@@ -32,11 +32,21 @@ import (
   func AddStudent(student Student) error{
 	 db:= Init()
 
-
 	if result:= db.Create(&student); result.Error != nil {
 		return result.Error
 	}
 
 	fmt.Println("Create student !")
 	return nil
+  }
+
+  func GetStudents() ([]Student, error) {
+	students := []Student{}
+
+	db:= Init()
+
+	err := db.Find(&students).Error
+	return students, err
+
+
   }
