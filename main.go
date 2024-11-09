@@ -6,6 +6,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/themarcosramos/api-students/db"
 )
 
 func main() {
@@ -26,8 +27,6 @@ func main() {
 
   e.DELETE("/students/:id", deleteStudent)
  
-//   - GET /students?active=<true/false> - List all active/non-active students
-
   // Start server
   e.Logger.Fatal(e.Start(":8080"))
 }
@@ -38,6 +37,7 @@ func getStudents(c echo.Context) error {
 }
 
 func createStudent(c echo.Context) error {
+	db.AddStudent()
 	return c.String(http.StatusOK, "Create student!")
 }
   

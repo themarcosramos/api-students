@@ -21,7 +21,7 @@ Struct Student:
 
  - Name (string)
 
- - CPF (int)
+ - CPF (string)
 
  - Email (string)
 
