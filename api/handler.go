@@ -5,13 +5,12 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/themarcosramos/api-students/db"
+	"github.com/themarcosramos/api-students/schemas"
 	"gorm.io/gorm"
 
 	"github.com/labstack/echo/v4"
 )
 
-// Handler
 func (api *API) getStudents(c echo.Context) error {
 	students, err := api.DB.GetStudents()
 	if err != nil {
@@ -22,7 +21,7 @@ func (api *API) getStudents(c echo.Context) error {
 }
 
 func (api *API) createStudent(c echo.Context) error {
-	student := db.Student{}
+	student := schemas.Student{}
 	if err := c.Bind(&student); err != nil {
 		return err
 	}
@@ -61,7 +60,7 @@ func (api *API) updateStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to get student ID")
 	}
 
-	receivedStudent := db.Student{}
+	receivedStudent := schemas.Student{}
 	if err := c.Bind(&receivedStudent); err != nil {
 		return err
 	}
@@ -76,7 +75,7 @@ func (api *API) updateStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to get student")
 	}
 
-	student := updateStudentInfo(receivedStudent ,updatingStudent)
+	student := updateStudentInfo(receivedStudent, updatingStudent)
 
 	if err := api.DB.UpdateStudent(student); err != nil {
 		return c.String(http.StatusInternalServerError, "Failed to save  student")
@@ -109,7 +108,7 @@ func (api *API) deleteStudent(c echo.Context) error {
 	return c.JSON(http.StatusOK, student)
 }
 
-func updateStudentInfo(receivedStudent, student db.Student) db.Student {
+func updateStudentInfo(receivedStudent, student schemas.Student) schemas.Student {
 
 	if receivedStudent.Name != "" {
 		student.Name = receivedStudent.Name
