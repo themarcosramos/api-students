@@ -1,0 +1,119 @@
+definitions:
+  schemas.StudentResponse:
+    properties:
+      active:
+        type: boolean
+      age:
+        type: integer
+      cpf:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /students:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve students details
+      parameters:
+      - description: Registration
+        in: path
+        name: register
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemas.StudentResponse'
+        "404":
+          description: Not Found
+      summary: Get a list of students
+      tags:
+      - students
+    post:
+      consumes:
+      - application/json
+      description: Create student
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemas.StudentResponse'
+        "400":
+          description: Bad Request
+      summary: Create student
+      tags:
+      - students
+  /students/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete student details
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemas.StudentResponse'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Delete Student
+      tags:
+      - students
+    get:
+      consumes:
+      - application/json
+      description: Retrieve student details using ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemas.StudentResponse'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get student by ID
+      tags:
+      - students
+    put:
+      consumes:
+      - application/json
+      description: Update student details
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schemas.StudentResponse'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Update Student
+      tags:
+      - students
+swagger: "2.0"

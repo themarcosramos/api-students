@@ -7,7 +7,7 @@ type StudentRequest struct {
 	CPF    string `json:"cpf"`
 	Email  string `json:"email"`
 	Age    int    `json:"age"`
-	Active *bool  `json:"active"` // força que a entrada true/false
+	Active *bool  `json:"active"` // using bool as a pointer to force a true/false input
 }
 
 func erroParamRequest(param, typ string) error {
