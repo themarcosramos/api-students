@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog/log"
 	"github.com/themarcosramos/api-students/schemas"
@@ -15,8 +16,10 @@ func (api *API) getStudents(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusNotFound, "Failed to get students")
 	}
+    
+	listOfStudents := map[string][]schemas.StudentResponse{"students": schemas.NewResponse(students)}
 
-	return c.JSON(http.StatusOK, students)
+	return c.JSON(http.StatusOK, listOfStudents)
 }
 
 func (api *API) createStudent(c echo.Context) error {
@@ -42,7 +45,7 @@ func (api *API) createStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Error to create student!")
 	}
 
-	return c.String(http.StatusOK, "Create student!")
+	return c.JSON(http.StatusOK, student)
 }
 
 func (api *API) getStudent(c echo.Context) error {
