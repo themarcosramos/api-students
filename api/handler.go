@@ -16,7 +16,18 @@ func (api *API) getStudents(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusNotFound, "Failed to get students")
 	}
-    
+
+	active := c.QueryParam("active")
+
+	if active != "" {
+		act, err := strconv.ParseBool(active)
+		if err != nil {
+			log.Error().Err(err).Msgf("[api] error to parse boolean")
+			return c.String(http.StatusInternalServerError, "Failed to parse boolean")
+		}
+		students, err = api.DB.GetFilteredStudent(act)
+	}
+
 	listOfStudents := map[string][]schemas.StudentResponse{"students": schemas.NewResponse(students)}
 
 	return c.JSON(http.StatusOK, listOfStudents)
@@ -28,16 +39,16 @@ func (api *API) createStudent(c echo.Context) error {
 		return err
 	}
 
-	if err := StudentReq.Validate();err != nil {
+	if err := StudentReq.Validate(); err != nil {
 		log.Error().Err(err).Msgf("[api] error validating struct")
-		return c.String(http.StatusBadRequest ,"Error validating student!")
+		return c.String(http.StatusBadRequest, "Falied validating student!")
 	}
 
 	student := schemas.Student{
-		Name  : StudentReq.Name,
-		CPF   : StudentReq.CPF,  
-		Email : StudentReq.Email,  
-		Age   : StudentReq.Age,
+		Name:   StudentReq.Name,
+		CPF:    StudentReq.CPF,
+		Email:  StudentReq.Email,
+		Age:    StudentReq.Age,
 		Active: *StudentReq.Active,
 	}
 
