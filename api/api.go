@@ -2,7 +2,6 @@ package api
 
 import (
 	"github.com/themarcosramos/api-students/db"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )

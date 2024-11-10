@@ -3,7 +3,6 @@ package db
 import (
 	"github.com/rs/zerolog/log"
 	"github.com/themarcosramos/api-students/schemas"
-
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
