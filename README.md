@@ -120,4 +120,4 @@ http://localhost:8080/swagger/index.html
 ```
 
 ## Status do projeto
-:construction: Aplicação em andamento.
+Aplicação em andamento.
